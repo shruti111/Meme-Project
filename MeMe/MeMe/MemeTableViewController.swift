@@ -12,27 +12,23 @@ class MemeTableViewController: UITableViewController {
     
     var sentMemes = [Meme]()
     
-    // If there is no meme, MemeEditor ViewController is displayed
-    // After that, if user clicks cancel button, MemeEditorViewController is not displayed again and again
-    var shouldShowAddMemeEditior = true
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = editButtonItem()
-        
+         navigationItem.leftBarButtonItem = editButtonItem()
+        navigationItem.leftBarButtonItem?.enabled = false
     }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         sentMemes = (UIApplication.sharedApplication().delegate as AppDelegate).memes
         tableView.reloadData()
+        
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        if shouldShowAddMemeEditior && sentMemes.count == 0 {
-            addNewMeme()
-            shouldShowAddMemeEditior = false
-        }
+
+        setBarButtonState()
     }
     
     @IBAction func addNewMeme(sender: UIBarButtonItem) {
@@ -89,8 +85,15 @@ class MemeTableViewController: UITableViewController {
             (UIApplication.sharedApplication().delegate as AppDelegate).memes = sentMemes
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }
+        setBarButtonState()
     }
     
+    func setBarButtonState() {
+            navigationItem.leftBarButtonItem?.enabled = sentMemes.count > 0 ? true : false
+        if  sentMemes.count == 0 {
+            addNewMeme()
+        }
+    }
     //MARK: - Navigation
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

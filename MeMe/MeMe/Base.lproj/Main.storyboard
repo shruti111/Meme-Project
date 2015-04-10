@@ -142,21 +142,23 @@
                         <viewControllerLayoutGuide type="bottom" id="yho-Dc-9i5"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="5iP-FV-OG3">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2kE-Fk-yzs">
-                                <rect key="frame" x="16" y="64" width="288" height="455"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2kE-Fk-yzs">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="2kE-Fk-yzs" secondAttribute="trailing" id="7Vo-bp-7nO"/>
                             <constraint firstItem="2kE-Fk-yzs" firstAttribute="top" secondItem="AVA-gB-IZE" secondAttribute="bottom" id="9am-70-Tvc"/>
                             <constraint firstItem="yho-Dc-9i5" firstAttribute="top" secondItem="2kE-Fk-yzs" secondAttribute="bottom" id="LRF-3i-ljp"/>
-                            <constraint firstItem="2kE-Fk-yzs" firstAttribute="leading" secondItem="5iP-FV-OG3" secondAttribute="leadingMargin" id="xzp-Hi-12g"/>
+                            <constraint firstItem="2kE-Fk-yzs" firstAttribute="leading" secondItem="5iP-FV-OG3" secondAttribute="leadingMargin" constant="-16" id="pkO-tm-5Em"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="2kE-Fk-yzs" secondAttribute="trailing" constant="-16" id="yBB-Qx-rfI"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="Ubd-Dh-CxX"/>
                         <barButtonItem systemItem="trash" id="8Vg-ia-ISG">
@@ -238,30 +240,36 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SvJ-g4-r0Y" userLabel="topTextField">
-                                <rect key="frame" x="16" y="80" width="288" height="17"/>
+                                <rect key="frame" x="16" y="94" width="288" height="45"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="gBD-he-t9p"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3vZ-KL-KVy" userLabel="bottomtextField">
-                                <rect key="frame" x="16" y="491" width="288" height="17"/>
+                                <rect key="frame" x="16" y="449" width="288" height="45"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="BDX-eJ-3SY"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
                         </subviews>
-                        <color key="backgroundColor" red="0.85098039215686272" green="0.85098039215686272" blue="0.85098039215686272" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="F39-1h-q4w" firstAttribute="top" secondItem="Ydq-pX-hoE" secondAttribute="bottom" id="6wb-KE-OlG"/>
                             <constraint firstItem="3vZ-KL-KVy" firstAttribute="leading" secondItem="Kut-Rm-oe3" secondAttribute="leadingMargin" id="BvQ-Nw-qaz"/>
-                            <constraint firstItem="SvJ-g4-r0Y" firstAttribute="top" secondItem="Ydq-pX-hoE" secondAttribute="bottom" constant="16" id="BxN-zO-YXG"/>
-                            <constraint firstAttribute="width" secondItem="F39-1h-q4w" secondAttribute="width" id="GvX-XZ-eRv"/>
                             <constraint firstItem="SvJ-g4-r0Y" firstAttribute="leading" secondItem="Kut-Rm-oe3" secondAttribute="leadingMargin" id="IT2-sw-0FH"/>
+                            <constraint firstItem="bcy-zS-Lc4" firstAttribute="top" secondItem="F39-1h-q4w" secondAttribute="bottom" id="JGZ-4E-iW1"/>
                             <constraint firstAttribute="trailingMargin" secondItem="3vZ-KL-KVy" secondAttribute="trailing" id="K79-Uq-yDt"/>
-                            <constraint firstItem="F39-1h-q4w" firstAttribute="top" secondItem="Ydq-pX-hoE" secondAttribute="bottom" id="Kiy-Jm-ezh"/>
-                            <constraint firstAttribute="centerX" secondItem="F39-1h-q4w" secondAttribute="centerX" id="NGJ-Ph-d54"/>
                             <constraint firstItem="SvJ-g4-r0Y" firstAttribute="trailing" secondItem="Kut-Rm-oe3" secondAttribute="trailingMargin" id="OnX-dn-ra3"/>
-                            <constraint firstItem="bcy-zS-Lc4" firstAttribute="top" secondItem="3vZ-KL-KVy" secondAttribute="bottom" constant="16" id="mCa-4h-WZL"/>
-                            <constraint firstItem="bcy-zS-Lc4" firstAttribute="top" secondItem="F39-1h-q4w" secondAttribute="bottom" id="vVb-lr-EUH"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="F39-1h-q4w" secondAttribute="trailing" constant="-16" id="P78-Zf-66g"/>
+                            <constraint firstItem="SvJ-g4-r0Y" firstAttribute="top" secondItem="Ydq-pX-hoE" secondAttribute="bottom" constant="30" id="Qgr-PO-TLG"/>
+                            <constraint firstItem="bcy-zS-Lc4" firstAttribute="top" secondItem="3vZ-KL-KVy" secondAttribute="bottom" constant="30" id="RDb-eg-FLS"/>
+                            <constraint firstItem="F39-1h-q4w" firstAttribute="leading" secondItem="Kut-Rm-oe3" secondAttribute="leadingMargin" constant="-16" id="hIv-xX-HGS"/>
                         </constraints>
                     </view>
                     <toolbarItems>
@@ -296,6 +304,7 @@
                         <outlet property="albumButton" destination="8qZ-7U-SWN" id="Rbb-Cd-nps"/>
                         <outlet property="bottomTextField" destination="3vZ-KL-KVy" id="3Vs-fm-ulc"/>
                         <outlet property="cameraButton" destination="gaJ-kg-9U6" id="75h-ou-ZhB"/>
+                        <outlet property="cancelButton" destination="Miu-4t-fqK" id="9Xu-AI-mz2"/>
                         <outlet property="imageView" destination="F39-1h-q4w" id="tXM-io-oqN"/>
                         <outlet property="shareButton" destination="6Jv-2o-YZW" id="dZF-tc-Ge3"/>
                         <outlet property="topTextField" destination="SvJ-g4-r0Y" id="LZC-Ue-gdY"/>

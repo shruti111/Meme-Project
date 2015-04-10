@@ -22,6 +22,8 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
     
     @IBOutlet weak var shareButton: UIBarButtonItem!
     
+    @IBOutlet weak var cancelButton: UIBarButtonItem!
+    
     // To check which text field is active (top or bottom)
     var activeTextField : UITextField!
     
@@ -63,7 +65,7 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
         } else {
             setStateOfUIControls(true)
         }
-    }
+           }
     
     func setStateOfUIControls(isNewMeme: Bool) {
         if isNewMeme {
@@ -83,7 +85,7 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
         shareButton.enabled = !isNewMeme
         topTextField.enabled = !isNewMeme
         bottomTextField.enabled = !isNewMeme
-        
+        cancelButton.enabled = (UIApplication.sharedApplication().delegate as AppDelegate).memes.count > 0 ? true : false
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -143,7 +145,7 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            imageView.image = info[UIImagePickerControllerOriginalImage] as? UIImage
+            imageView.image = image
             shareButton.enabled = true
             topTextField.enabled = true
             bottomTextField.enabled = true
@@ -196,22 +198,30 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
             }
         }
         // Update the meme collection to add or edit the meme object
-         (UIApplication.sharedApplication().delegate as AppDelegate).memes.append(memeObject)
+        (UIApplication.sharedApplication().delegate as AppDelegate).memes.append(memeObject)
+        cancelButton.enabled = true
        
     }
     
     func generateMemedImage() -> UIImage {
         
         // Do not display navigation bar and tool bar
-        navigationController?.navigationBar.alpha = 0.0
-        navigationController?.toolbar.alpha = 0.0
-        view.backgroundColor = UIColor.whiteColor()
+
+        self.navigationController?.navigationBar.hidden = true
+         self.navigationController?.toolbar.hidden = true
+        
         
         UIGraphicsBeginImageContext(self.view.frame.size)
         self.view.drawViewHierarchyInRect(self.view.frame, afterScreenUpdates: true)
         let memedImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
+        
+
+        self.navigationController?.navigationBar.hidden = false
+        self.navigationController?.toolbar.hidden = false
+
         return memedImage
+
     }
     
     @IBAction func shareMeme(sender: UIBarButtonItem) {
@@ -224,13 +234,10 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
             }
             
             // if user has completed the action , save meme object
-            // Else show navigation bar and toolbar
+
             if completed  {
                 self.saveMemeObject()
                 self.dismissViewControllerAnimated(true, completion: nil)
-            } else {
-                self.navigationController?.navigationBar.alpha = 1.0
-                 self.navigationController?.toolbar.alpha = 1.0
             }
         }
         self.presentViewController(controller, animated: true, completion: nil)

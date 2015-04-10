@@ -12,10 +12,6 @@ class MemeCollectionViewController: UICollectionViewController {
     
     var sentMemes = [Meme]()
     
-    // If there is no meme, MemeEditor ViewController is displayed
-    // After that, if user clicks cancel button, MemeEditorViewController is not displayed again and again
-    var shouldShowAddMemeEditior = true
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -28,9 +24,9 @@ class MemeCollectionViewController: UICollectionViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        if shouldShowAddMemeEditior && sentMemes.count == 0 {
+
+        if  sentMemes.count == 0 {
             addNewMeme()
-            shouldShowAddMemeEditior = false
         }
     }
     

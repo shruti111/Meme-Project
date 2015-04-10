@@ -28,8 +28,8 @@ class MemeDetailViewController: UIViewController {
         navigationController?.setToolbarHidden(true, animated: true)
     }
 
-   
-    @IBAction func editMeme(sender: UIBarButtonItem){
+    
+       @IBAction func editMeme(sender: UIBarButtonItem){
         var memeViewController = self.storyboard?.instantiateViewControllerWithIdentifier("NewMemeEditorController") as UINavigationController
         var topViewController = memeViewController.topViewController as MemeEditorViewController
         topViewController.editMeme = sentMeme

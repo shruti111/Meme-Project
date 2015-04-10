@@ -6,9 +6,8 @@
 The functionalitites are implemented as below:
 
 1 .  The sent Meme page is displayed when there are no sent memes.
+     Cancel button is disabled until user first saves one meme object.
 
-Note : When user opens the application for the FIRST TIME, user is directed to New meme creation screen.
-    In this screen, if user does not save meme and click cancel button, user can see table view or collection view with zero item. Here, user is not again and again forced to save meme.
 
 2. The table view displays the iOS built in Edit button , which is implemented to provide swip-in delete functionality.
 
@@ -17,7 +16,7 @@ Note : When user opens the application for the FIRST TIME, user is directed to N
     If user wants to change an image, user should create a new meme.
 
     Delete button :- The meme will be deleted and user is navigated to either table view or collection view.
-    If table view or collection view does not contain any meme, user is not asked again and again to create a new meme.
+
 4. Meme creation will look good if portrait images will be opened in portrait mode and landscape images will be opened in landscape mode.
 
 ------------------------------------------------------------------------------------
