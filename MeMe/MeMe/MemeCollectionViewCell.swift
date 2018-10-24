@@ -16,15 +16,15 @@ class MemeCollectionViewCell: UICollectionViewCell {
     func setText (topString : String! , bottomString:String!) {
         
         let memeTextAttributes = [
-            NSStrokeColorAttributeName : UIColor.blackColor(),
+            NSStrokeColorAttributeName : UIColor.black,
             NSStrokeWidthAttributeName : -3.0,
-            NSForegroundColorAttributeName: UIColor.whiteColor(),
+            NSForegroundColorAttributeName: UIColor.white,
             NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: 22)!]
         
         topTextLabel.attributedText = NSAttributedString(string: topString, attributes: memeTextAttributes)
         bottomTextLabel.attributedText = NSAttributedString(string: bottomString, attributes: memeTextAttributes)
-        topTextLabel.textAlignment = .Center
-        bottomTextLabel.textAlignment = .Center
+        topTextLabel.textAlignment = .center
+        bottomTextLabel.textAlignment = .center
         
     }
     

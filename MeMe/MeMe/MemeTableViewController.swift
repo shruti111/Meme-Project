@@ -2,8 +2,8 @@
 //  MemeTableViewController.swift
 //  MeMe
 //
-//  Created by Shruti Pawar on 14/03/15.
-//  Copyright (c) 2015 ShapeMyApp Software Solutions Pvt. Ltd. All rights reserved.
+//  Created by Shruti Choksi on 24/10/18.
+//  Copyright (c) 2015 Shruti Choksi. All rights reserved.
 //
 
 import UIKit
@@ -14,18 +14,19 @@ class MemeTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-         navigationItem.leftBarButtonItem = editButtonItem()
-        navigationItem.leftBarButtonItem?.enabled = false
+         navigationItem.leftBarButtonItem = editButtonItem
+        navigationItem.leftBarButtonItem?.isEnabled = false
     }
     
-    override func viewWillAppear(animated: Bool) {
+    
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        sentMemes = (UIApplication.sharedApplication().delegate as AppDelegate).memes
+        sentMemes = (UIApplication.shared.delegate as! AppDelegate).memes
         tableView.reloadData()
         
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
         setBarButtonState()
@@ -36,69 +37,80 @@ class MemeTableViewController: UITableViewController {
     }
     
     func addNewMeme() {
-        var memeViewController = self.storyboard?.instantiateViewControllerWithIdentifier("NewMemeEditorController") as UINavigationController
-        self.presentViewController(memeViewController, animated: true, completion: nil)
-        
+        if let memeViewController = self.storyboard?.instantiateViewController(withIdentifier: "NewMemeEditorController") as? UINavigationController {
+            present(memeViewController, animated: true, completion: nil)
+        }
     }
     
     // MARK: - Table view data source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sentMemes.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("memeTableViewCell") as UITableViewCell
+    
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "memeTableViewCell")
         let meme = sentMemes[indexPath.row]
         
         // If top and bottom texts are too long to display, display first few characters of top field and last few charactes of bottom filed
-        var newStringForTopTextField =  countElements(meme.topString) > 7 ? (meme.topString as NSString).substringToIndex(6)  : meme.topString
-        var newStringForBottomTextField =  countElements(meme.bottomString) > 7 ? (meme.bottomString as NSString).substringFromIndex(countElements(meme.bottomString) - 7) : meme.bottomString
-        cell.textLabel?.text = newStringForTopTextField +  ".." + newStringForBottomTextField
+        
+        
+        
+        var newStringForTopTextField =  meme.topString.count > 7 ? (meme.topString as NSString).substring(to: 6)  : meme.topString
+        var newStringForBottomTextField =  meme.bottomString.count > 7 ? (meme.bottomString as NSString).substring(from: meme.bottomString.count - 7) : meme.bottomString
+        cell.textLabel?.text = newStringForTopTextField ?? "" +  ".." + newStringForBottomTextField ?? ""
         
         let itemSize  = CGSize(width: 88, height: 88)
         UIGraphicsBeginImageContext(itemSize);
         let imageRect = CGRect(x: 0, y: 0, width: 88, height: 88)
         
-        meme.memeImage.drawInRect(imageRect)
-        cell.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
+        meme.memeImage.draw(in: imageRect)
+        cell.imageView?.contentMode = .scaleAspectFit
         cell.imageView?.image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         
         return cell
     }
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    
+   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         var selectedMeme = sentMemes[indexPath.row]
-        self.performSegueWithIdentifier("showDetailMeme", sender: selectedMeme)
+        performSegue(withIdentifier: "showDetailMeme", sender: selectedMeme)
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 88
     }
+    
     // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            sentMemes.removeAtIndex(indexPath.row)
-            (UIApplication.sharedApplication().delegate as AppDelegate).memes = sentMemes
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+    
+    override  func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath)
+ {
+        if editingStyle == .delete {
+            sentMemes.remove(at: indexPath.row)
+            (UIApplication.shared.delegate as! AppDelegate).memes = sentMemes
+            tableView.deleteRows(at: [indexPath], with: .fade)
         }
         setBarButtonState()
     }
     
     func setBarButtonState() {
-            navigationItem.leftBarButtonItem?.enabled = sentMemes.count > 0 ? true : false
+            navigationItem.leftBarButtonItem?.isEnabled = sentMemes.count > 0 ? true : false
         if  sentMemes.count == 0 {
             addNewMeme()
         }
     }
     //MARK: - Navigation
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let detailViewController = segue.destinationViewController as MemeDetailViewController
-        detailViewController.sentMeme = (sender as Meme)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let detailViewController = segue.destination as? MemeDetailViewController {
+            detailViewController.sentMeme = (sender as! Meme)
+        }
     }
     
 }
