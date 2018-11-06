@@ -2,8 +2,8 @@
 //  MemeCollectionViewCell.swift
 //  MeMe
 //
-//  Created by Shruti Pawar on 15/03/15.
-//  Copyright (c) 2015 ShapeMyApp Software Solutions Pvt. Ltd. All rights reserved.
+//  Created by Shruti Choksi on 20/10/18.
+//  Copyright (c) 2018 Shruti Choksi. All rights reserved.
 //
 
 import UIKit
@@ -16,10 +16,10 @@ class MemeCollectionViewCell: UICollectionViewCell {
     func setText (topString : String! , bottomString:String!) {
         
         let memeTextAttributes = [
-            NSStrokeColorAttributeName : UIColor.black,
-            NSStrokeWidthAttributeName : -3.0,
-            NSForegroundColorAttributeName: UIColor.white,
-            NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: 22)!]
+            NSAttributedString.Key.strokeColor : UIColor.black,
+            NSAttributedString.Key.strokeWidth : -3.0,
+            NSAttributedString.Key.foregroundColor: UIColor.white,
+            NSAttributedString.Key.font : UIFont(name: "HelveticaNeue-CondensedBlack", size: 22)!] as [NSAttributedString.Key : Any]
         
         topTextLabel.attributedText = NSAttributedString(string: topString, attributes: memeTextAttributes)
         bottomTextLabel.attributedText = NSAttributedString(string: bottomString, attributes: memeTextAttributes)

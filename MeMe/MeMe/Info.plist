@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Meme wants to use your phone&apos;s photo gallery to create the memes.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Meme wants to save in your phone&apos;s photo gallery.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Meme wants to use your phone&apos;s camera to take awesome pictures</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>

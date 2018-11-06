@@ -2,8 +2,8 @@
 //  MemeCollectionViewController.swift
 //  MeMe
 //
-//  Created by Shruti Pawar on 14/03/15.
-//  Copyright (c) 2015 ShapeMyApp Software Solutions Pvt. Ltd. All rights reserved.
+//  Created by Shruti Choksi on 20/10/18.
+//  Copyright (c) 2018 Shruti Choksi. All rights reserved.
 //
 
 import UIKit
@@ -16,13 +16,13 @@ class MemeCollectionViewController: UICollectionViewController {
         super.viewDidLoad()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        sentMemes = (UIApplication.sharedApplication().delegate as AppDelegate).memes
+        sentMemes = (UIApplication.shared.delegate as! AppDelegate).memes
         collectionView?.reloadData()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
         if  sentMemes.count == 0 {
@@ -34,36 +34,35 @@ class MemeCollectionViewController: UICollectionViewController {
         addNewMeme()
     }
     func addNewMeme() {
-        var memeViewController = self.storyboard?.instantiateViewControllerWithIdentifier("NewMemeEditorController") as UINavigationController
-        self.presentViewController(memeViewController, animated: true, completion: nil)
+        if let memeViewController = self.storyboard?.instantiateViewController(withIdentifier: "NewMemeEditorController") as? UINavigationController {
+            present(memeViewController, animated: true, completion: nil)
+        }
     }
     
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         return sentMemes.count
     }
     
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CustomMemeCell", forIndexPath: indexPath) as MemeCollectionViewCell
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomMemeCell", for: indexPath) as! MemeCollectionViewCell
         let meme = sentMemes[indexPath.item]
-        cell.setText(meme.topString, bottomString: meme.bottomString)
+        cell.setText(topString: meme.topString, bottomString: meme.bottomString)
         let imageView = UIImageView(image: meme.memeImage)
-        imageView.contentMode = UIViewContentMode.ScaleAspectFill
+        imageView.contentMode = UIView.ContentMode.scaleAspectFill
         cell.backgroundView = imageView
         return cell
     }
     
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        var selectedMeme = sentMemes[indexPath.row]
-        self.performSegueWithIdentifier("showDetailMemeFromCollectionView", sender: selectedMeme)
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedMeme = sentMemes[indexPath.row]
+        performSegue(withIdentifier: "showDetailMemeFromCollectionView", sender: selectedMeme)
     }
     
     //MARK: - Navigation
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let detailViewController = segue.destinationViewController as MemeDetailViewController
-        detailViewController.sentMeme = (sender as Meme)
-        
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let detailViewController = segue.destination as! MemeDetailViewController
+        detailViewController.sentMeme = (sender as! Meme)
     }
-    
 }

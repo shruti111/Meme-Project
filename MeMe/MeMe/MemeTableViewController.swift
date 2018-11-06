@@ -2,8 +2,8 @@
 //  MemeTableViewController.swift
 //  MeMe
 //
-//  Created by Shruti Choksi on 24/10/18.
-//  Copyright (c) 2015 Shruti Choksi. All rights reserved.
+//  Created by Shruti Choksi on 20/10/18.
+//  Copyright (c) 2018 Shruti Choksi. All rights reserved.
 //
 
 import UIKit
@@ -55,16 +55,13 @@ class MemeTableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "memeTableViewCell")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "memeTableViewCell") as! UITableViewCell
         let meme = sentMemes[indexPath.row]
         
-        // If top and bottom texts are too long to display, display first few characters of top field and last few charactes of bottom filed
-        
-        
-        
+        // If top and bottom texts are too long to display, display first few characters of top field and last few charactes of bottom filed                    
         var newStringForTopTextField =  meme.topString.count > 7 ? (meme.topString as NSString).substring(to: 6)  : meme.topString
-        var newStringForBottomTextField =  meme.bottomString.count > 7 ? (meme.bottomString as NSString).substring(from: meme.bottomString.count - 7) : meme.bottomString
-        cell.textLabel?.text = newStringForTopTextField ?? "" +  ".." + newStringForBottomTextField ?? ""
+        let newStringForBottomTextField =  meme.bottomString.count > 7 ? (meme.bottomString as NSString).substring(from: meme.bottomString.count - 7) : meme.bottomString
+        cell.textLabel?.text = (newStringForTopTextField ?? "") +  ".." + (newStringForBottomTextField ?? "")
         
         let itemSize  = CGSize(width: 88, height: 88)
         UIGraphicsBeginImageContext(itemSize);
@@ -79,7 +76,7 @@ class MemeTableViewController: UITableViewController {
     }
     
    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var selectedMeme = sentMemes[indexPath.row]
+        let selectedMeme = sentMemes[indexPath.row]
         performSegue(withIdentifier: "showDetailMeme", sender: selectedMeme)
     }
     

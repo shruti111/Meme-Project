@@ -2,8 +2,8 @@
 //  MemeDetailViewController.swift
 //  MeMe
 //
-//  Created by Shruti Pawar on 15/03/15.
-//  Copyright (c) 2015 ShapeMyApp Software Solutions Pvt. Ltd. All rights reserved.
+//  Created by Shruti Choksi on 20/10/18.
+//  Copyright (c) 2018 Shruti Choksi. All rights reserved.
 //
 
 import UIKit
@@ -20,29 +20,34 @@ class MemeDetailViewController: UIViewController {
     }
     
     // Toggle tool bar and tab bar to show delete button
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         navigationController?.setToolbarHidden(false, animated: true)
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         navigationController?.setToolbarHidden(true, animated: true)
     }
 
     
        @IBAction func editMeme(sender: UIBarButtonItem){
-        var memeViewController = self.storyboard?.instantiateViewControllerWithIdentifier("NewMemeEditorController") as UINavigationController
-        var topViewController = memeViewController.topViewController as MemeEditorViewController
-        topViewController.editMeme = sentMeme
-        self.presentViewController(memeViewController, animated: true, completion: nil)
+        if let memeViewController = storyboard?.instantiateViewController(withIdentifier: "NewMemeEditorController") as? UINavigationController {
+            if let topViewController = memeViewController.topViewController as? MemeEditorViewController {
+                topViewController.editMeme = sentMeme
+                present(memeViewController, animated: true, completion: nil)
+            }
+        }
+        
     }
 
     
     @IBAction func deleteMeme(sender: UIBarButtonItem) {
-        var allMemes = (UIApplication.sharedApplication().delegate as AppDelegate).memes
-        if let selectedMemeIndex = find(allMemes,sentMeme) {
-            (UIApplication.sharedApplication().delegate as AppDelegate).memes.removeAtIndex(selectedMemeIndex)
+        let allMemes = (UIApplication.shared.delegate as! AppDelegate).memes
+        
+        
+        if let selectedMemeIndex = allMemes.firstIndex(of: sentMeme) {
+            (UIApplication.shared.delegate as! AppDelegate).memes.remove(at: selectedMemeIndex)            
         }
 
-         self.navigationController?.popToRootViewControllerAnimated(true)
+        self.navigationController?.popToRootViewController(animated: true)
     }
 }
